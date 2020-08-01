@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.dao.ProductDao">
+    <insert id="insertProduct" parameterType="com.app.entity.Product" useGeneratedKeys="true" keyColumn="product_id" keyProperty="productId">
+        insert into
+        tb_product(product_name,product_desc,product_img,product_price,
+        priority,create_time,last_edit_time,enable_status,user_id,product_category_id)
+        value (#{productName},#{productDesc},#{productImg},#{productPrice},#{priority},
+        #{createTime},#{lastEditTime},#{enableStatus},#{owner.userId},#{productCategory.productCategoryId})
+    </insert>
+</mapper>
