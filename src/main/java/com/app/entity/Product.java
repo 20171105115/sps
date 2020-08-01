@@ -14,6 +14,8 @@ public class Product {
 
     private double productPrice;
 
+    private String productImg;
+
     private int priority;
 
     private Date createTime;
@@ -114,5 +116,13 @@ public class Product {
 
     public void setProductImgList(List<ProductImg> productImgList) {
         this.productImgList = productImgList;
+    }
+
+    public String getProductImg() {
+        return productImg;
+    }
+
+    public void setProductImg(String productImg) {
+        this.productImg = productImg;
     }
 }
