@@ -27,7 +27,9 @@ public class ImageUtil {
         // 如果目标路径不存在，则自动创建
         makeDirPath(targetAddr);
         String relativePath = targetAddr + realFileName + extension;
+        System.out.println(relativePath);
         File dest = new File(PathUtil.getImgBasePath() + relativePath);
+        System.out.println(dest);
         try {
             Thumbnails.of(thumbnail.getImagePath()).size(200,200)
                     .outputQuality(0.8f).toFile(dest);
@@ -62,5 +64,32 @@ public class ImageUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 处理详情图，尺寸大一点
+     * @param thumbnail
+     * @param targetAddr
+     * @return
+     */
+    public static String generateBigThumbnail(ImageHolder thumbnail, String targetAddr){
+        // 获取不重复的随机名
+        String realFileName = getRandomFileName();
+        // 获取文件的扩展名如png,jpg等
+        String extension = getFileExtension(thumbnail.getImageName());
+        // 如果目标路径不存在，则自动创建
+        makeDirPath(targetAddr);
+        String relativePath = targetAddr + realFileName + extension;
+        System.out.println(relativePath);
+        File dest = new File(PathUtil.getImgBasePath() + relativePath);
+        System.out.println(dest);
+        try {
+            Thumbnails.of(thumbnail.getImagePath()).size(337,640)
+                    .outputQuality(0.8f).toFile(dest);
+
+        } catch (IOException e) {
+            throw new RuntimeException("图片创建失败"+e.getMessage());
+        }
+        return relativePath;
     }
 }

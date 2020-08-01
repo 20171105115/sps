@@ -8,6 +8,11 @@ public class ImageHolder {
 
     private InputStream imagePath;
 
+    public ImageHolder(String imageName, InputStream imagePath) {
+        this.imageName = imageName;
+        this.imagePath = imagePath;
+    }
+
     public String getImageName() {
         return imageName;
     }
