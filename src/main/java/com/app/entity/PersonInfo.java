@@ -16,6 +16,16 @@ public class PersonInfo {
 
     private String phone;
 
+    private Area area;
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
     public int getUserId() {
         return userId;
     }

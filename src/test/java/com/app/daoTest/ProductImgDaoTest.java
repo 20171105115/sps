@@ -41,4 +41,10 @@ public class ProductImgDaoTest extends BaseTest {
         int i = productImgDao.batchInsertImg(productImgList);
         assertEquals(3,i);
     }
+
+    @Test
+    public void testQueryProductImgList(){
+        List<ProductImg> productImgList = productImgDao.queryProductImgById(1);
+        assertEquals(7,productImgList.size());
+    }
 }

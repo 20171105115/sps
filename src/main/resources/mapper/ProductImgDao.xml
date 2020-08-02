@@ -15,4 +15,11 @@
             )
         </foreach>
     </insert>
+
+    <select id="queryProductImgById" resultType="com.app.entity.ProductImg">
+        select
+        img_id,img_addr,img_desc,create_time,last_edit_time,product_id
+        from tb_product_img
+        where product_id=#{productId}
+    </select>
 </mapper>

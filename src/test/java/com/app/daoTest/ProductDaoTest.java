@@ -35,4 +35,28 @@ public class ProductDaoTest extends BaseTest {
         int i = productDao.insertProduct(product);
         assertEquals(1,i);
     }
+
+    @Test
+    public void testUpdateProduct(){
+        Product product = new Product();
+        PersonInfo user = new PersonInfo();
+        user.setUserId(1);
+        product.setOwner(user);
+
+        product.setProductName("测试修改");
+        product.setLastEditTime(new Date());
+        product.setProductId(3);
+
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setProductCategoryId(2);
+        product.setProductCategory(productCategory);
+
+        int i = productDao.updateProduct(product);
+        assertEquals(1,i);
+    }
+
+    @Test
+    public void testSelectProductById(){
+        assertEquals("二手自行车",productDao.selectProductById(1).getProductCategory().getProductCategoryName());
+    }
 }

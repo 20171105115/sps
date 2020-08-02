@@ -8,4 +8,11 @@ import java.util.List;
 public interface ProductImgDao {
 
     int batchInsertImg(List<ProductImg> productImgList);
+
+    /**
+     * 通过productId查询所有详情图
+     * @param productId
+     * @return
+     */
+    List<ProductImg> queryProductImgById(int productId);
 }
