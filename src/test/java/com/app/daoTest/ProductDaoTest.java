@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,12 +25,12 @@ public class ProductDaoTest extends BaseTest {
         PersonInfo owner = new PersonInfo();
         owner.setUserId(1);
         ProductCategory productCategory = new ProductCategory();
-        productCategory.setProductCategoryId(1);
+        productCategory.setProductCategoryId(2);
         product.setOwner(owner);
         product.setProductCategory(productCategory);
 
-        product.setProductName("废弃的自行车");
-        product.setProductDesc("缺少一个轮子");
+        product.setProductName("废弃的书籍");
+        product.setProductDesc("经典书籍");
         product.setCreateTime(new Date());
         product.setLastEditTime(new Date());
         int i = productDao.insertProduct(product);
@@ -58,5 +59,17 @@ public class ProductDaoTest extends BaseTest {
     @Test
     public void testSelectProductById(){
         assertEquals("二手自行车",productDao.selectProductById(1).getProductCategory().getProductCategoryName());
+    }
+
+    @Test
+    public void testQueryProductList(){
+        Product productCondition = new Product();
+        productCondition.setProductName("缺少");
+
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setProductCategoryId(1);
+        productCondition.setProductCategory(productCategory);
+        List<Product> productList = productDao.queryProductList(productCondition,0,1);
+        assertEquals(1,productList.size());
     }
 }

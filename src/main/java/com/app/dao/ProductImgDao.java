@@ -15,4 +15,13 @@ public interface ProductImgDao {
      * @return
      */
     List<ProductImg> queryProductImgById(int productId);
+
+    /**
+     * 删除详情图
+     * @param productId
+     * @return
+     */
+    int deleteProductImgById(int productId);
+
+
 }

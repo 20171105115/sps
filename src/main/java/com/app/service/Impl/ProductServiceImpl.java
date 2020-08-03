@@ -10,6 +10,7 @@ import com.app.entity.ProductImg;
 import com.app.enums.ProductStateEnum;
 import com.app.service.ProductService;
 import com.app.util.ImageUtil;
+import com.app.util.PageUtil;
 import com.app.util.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,6 +92,7 @@ public class ProductServiceImpl implements ProductService {
      * @return
      */
     @Override
+    @Transactional
     public ProductExecution modifyProduct(Product product, ImageHolder thumbnail, List<ImageHolder> imgList) {
         if (product != null && product.getProductId() != 0 && product.getOwner() != null && product.getOwner().getUserId() != -1) {
             //设置基本属性
@@ -99,7 +101,7 @@ public class ProductServiceImpl implements ProductService {
             Product tempProduct = productDao.selectProductById(product.getProductId());
             if (thumbnail != null && thumbnail.getImagePath() != null) {
                 if (tempProduct.getProductImg() != null) {
-                    ImageUtil.deleteFileOrPath(product.getProductImg());
+                    ImageUtil.deleteFileOrPath(tempProduct.getProductImg());
                 }
                 try {
                     addImg(product, thumbnail);
@@ -113,6 +115,10 @@ public class ProductServiceImpl implements ProductService {
                     deleteImageList(productImgList);
                 }
                 try {
+                    int effectedNum = productImgDao.deleteProductImgById(product.getProductId());
+                    if (effectedNum<=0){
+                        throw new RuntimeException("处理详情图失败 删除失败");
+                    }
                     addImageList(product, imgList);
                 } catch (Exception e) {
                     throw new RuntimeException("处理详情图失败" + e.getMessage());
@@ -140,6 +146,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProductById(int productId) {
         return productDao.selectProductById(productId);
+    }
+
+    @Override
+    public List<Product> getProductList(Product productCondition, int pageIndex, int pageSize) {
+        int rowIndex = PageUtil.pageIndexToRowIndex(pageIndex,pageSize);
+        return productDao.queryProductList(productCondition,rowIndex,pageSize);
+    }
+
+    @Override
+    public Product getProductDetail(int productId) {
+        Product product = productDao.selectProductById(productId);
+        List<ProductImg> productImgList = productImgDao.queryProductImgById(productId);
+        product.setProductImgList(productImgList);
+        return product;
     }
 
     /**
@@ -193,4 +213,6 @@ public class ProductServiceImpl implements ProductService {
         String relativePath = ImageUtil.generateThumbnail(thumbnail, targetAddr);
         product.setProductImg(relativePath);
     }
+
+
 }

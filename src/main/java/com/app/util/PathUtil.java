@@ -1,5 +1,7 @@
 package com.app.util;
 
+import java.util.Date;
+
 public class PathUtil {
     private static String separator = System.getProperty("file.separator");
 
@@ -18,5 +20,10 @@ public class PathUtil {
     public static String getImagePath(long userId) {
         String imagePath = "/upload/images/user/" + userId + "/";
         return imagePath.replace("/", separator);
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(new Date());
     }
 }

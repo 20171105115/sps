@@ -27,4 +27,24 @@ public interface ProductService {
      * @return
      */
     Product getProductById(int productId);
+
+
+    /**
+     * 分页获取商品信息
+     *
+     * @param productCondition
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    List<Product> getProductList(Product productCondition, int pageIndex, int pageSize);
+
+    /**
+     * 获取商品详情以及详情图
+     * @param productId
+     * @return
+     */
+    Product getProductDetail(int productId);
+
+
 }

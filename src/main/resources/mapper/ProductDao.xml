@@ -14,6 +14,7 @@
         <association property="owner" column="user_id" javaType="com.app.entity.PersonInfo">
             <id column="user_id" property="userId"/>
             <result column="name" property="name"/>
+            <result column="phone" property="phone"/>
         </association>
         <association property="productCategory" column="product_category_id" javaType="com.app.entity.ProductCategory">
             <id column="product_category_id" property="productCategoryId"/>
@@ -34,6 +35,7 @@
         p.enable_status,
         u.user_id,
         u.name,
+        u.phone,
         pc.product_category_id,
         pc.product_category_name
         from
@@ -69,4 +71,39 @@
         </set>
         where product_id=#{productId} and user_id=#{owner.userId}
     </update>
+
+    <select id="queryProductList" resultMap="productMap">
+        select
+        p.product_id,
+        p.product_name,
+        p.product_desc,
+        p.product_img,
+        p.product_price,
+        p.priority,
+        p.create_time,
+        p.last_edit_time,
+        p.enable_status,
+        u.user_id,
+        u.name,
+        pc.product_category_id,
+        pc.product_category_name
+        from
+        tb_product p,
+        tb_person_info u,
+        tb_product_category pc
+        <where>
+            <if test="productCondition.productName!=null">
+                and p.product_name like '%${productCondition.productName}%'
+            </if>
+            <if test="productCondition.productCategory!=null and productCondition.productCategory.productCategoryId!=null">
+                and p.product_category_id=#{productCondition.productCategory.productCategoryId}
+            </if>
+            <if test="productCondition.owner!=null and productCondition.owner.userId!=null">
+                and p.user_id=#{productCondition.owner.userId}
+            </if>
+            and p.product_category_id=pc.product_category_id and p.user_id=u.user_id
+        </where>
+        order by p.priority DESC
+        limit #{rowIndex},#{pageSize}
+    </select>
 </mapper>
