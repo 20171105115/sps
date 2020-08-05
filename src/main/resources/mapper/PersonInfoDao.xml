@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.dao.PersonInfoDao">
+    <insert id="insertPersonInfo" parameterType="com.app.entity.PersonInfo" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id">
+        insert into
+        tb_person_info(name,create_time,last_edit_time,gender,phone,area_id)
+        value (#{name},#{createTime},#{lastEditTime},#{gender},#{phone},#{area.areaId})
+    </insert>
+</mapper>

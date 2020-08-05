@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的生活</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="../resources/dist/css/sm.min.css">
+    <link rel="stylesheet" href="../resources/dist/css/sm-extend.min.css">
+
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current">
+        <!-- 你的html代码 -->
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+            <a class="icon icon-me pull-left open-panel"></a>
+            <h1 class="title">商品信息</h1>
+        </header>
+
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+            <div class="list-block">
+                <ul>
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">商品名称</div>
+                                <div class="item-input">
+                                    <input type="text" id="product-name" placeholder="商品名称">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- 价格 -->
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">商品价格</div>
+                                <div class="item-input">
+                                    <input type="text" id="product-price" placeholder="商品价格">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+
+
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-gender"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">分类</div>
+                                <div class="item-input">
+                                    <select id="product-category">
+<!--                                        <option>Male</option>-->
+<!--                                        <option>Female</option>-->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon icon-form-email"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title label">缩略图</div>
+                                <div class="item-input">
+                                    <input type="file" id="small-img">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon icon-form-email"></i>
+                            </div>
+                            <div class="item-inner detail-img-div">
+                                <div class="item-title label">详情图片</div>
+                                <div class="item-input" id="detail-img">
+                                    <input type="file" class="detail-img">
+                                    <!-- <input type="file" class="detail-img">
+                                    <input type="file" class="detail-img"> -->
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+
+
+                    <li class="align-top">
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-comment"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">商品简介</div>
+                                <div class="item-input">
+                                    <textarea id="product-desc"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+<!--                    验证码-->
+
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon icon-form-email"></i>
+                            </div>
+                            <div class="item-inner">
+                                <label for="j_captcha" class="item-title label">验证码</label> <input
+                                    id="j_captcha" name="j_captcha" type="text"
+                                    class="form-control in" placeholder="验证码" />
+                                <div class="item-input">
+                                    <img id="captcha_img" alt="点击更换" title="点击更换"
+                                         onclick="changeVerifyCode(this)" src="../Kaptcha" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="content-block">
+                <div class="row">
+                    <div class="col-50"><a href="/sps/productadmin/productlist" class="button button-big button-fill button-danger">取消</a></div>
+                    <div class="col-50"><a id="submit" href="#" class="button button-big button-fill button-success">提交</a></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src='//cdn.bootcss.com/jquery/3.1.1/jquery.min.js'></script>
+<script src='../resources/dist/js/sm.js'></script>
+<script src='../resources/dist/js/sm-extend.js'></script>
+<script type="text/javascript" src="../resources/js/productoperation.js"></script>\
+<script type="text/javascript" src="../resources/js/common.js"></script>
+</body>
+</html>

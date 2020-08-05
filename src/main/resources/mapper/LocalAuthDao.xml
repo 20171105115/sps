@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.dao.LocalAuthDao">
+
+    <resultMap id="LocalAuthMap" type="com.app.entity.LocalAuth">
+        <id column="local_auth_id" property="localAuthId"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="status" property="status"/>
+        <association property="owner" column="user_id" javaType="com.app.entity.PersonInfo">
+            <id column="user_id" property="userId"/>
+            <result column="name" property="name"/>
+            <result column="create_time" property="createTime"/>
+            <result column="last_edit_time" property="lastEditTime"/>
+            <result column="gender" property="gender"/>
+            <result column="phone" property="phone"/>
+        </association>
+    </resultMap>
+
+    <select id="queryLocalAuthByUserName" resultMap="LocalAuthMap">
+        select
+        l.local_auth_id,
+        l.username,
+        l.password,
+        l.status,
+        p.user_id,
+        p.name,
+        p.create_time,
+        p.last_edit_time,
+        p.gender,
+        p.phone
+        from tb_local_auth l,
+        tb_person_info p
+        where l.username=#{username}
+    </select>
+
+    <insert id="insertLocalAuth" parameterType="com.app.entity.LocalAuth" useGeneratedKeys="true" keyColumn="local_auth_id" keyProperty="localAuthId">
+        insert into
+        tb_local_auth(username,password,create_time,last_edit_time,user_id,status)
+        value (#{username},#{password},#{createTime},#{lastEditTime},#{owner.userId},#{status})
+    </insert>
+
+    <update id="updatePersonInfo" parameterType="com.app.entity.LocalAuth">
+        update tb_local_auth
+        <set>
+            <if test="localAuth!=null and localAuth.lastEditTime!=null">
+                last_edit_time=#{localAuth.lastEditTime},
+            </if>
+            <if test="newPassword!=null">
+                password=#{newPassword},
+            </if>
+            <if test="localAuth!=null and localAuth.status!=null">
+                status=#{localAuth.status},
+            </if>
+        </set>
+        where user_id=#{localAuth.owner.userId}
+    </update>
+
+
+</mapper>
