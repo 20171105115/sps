@@ -91,4 +91,10 @@ public class ProductServiceTest extends BaseTest {
         ProductExecution pe = productService.modifyProduct(product,thumbnail,imgList);
         assertEquals(ProductStateEnum.SUCCESS.getState(),pe.getState());
     }
+
+    @Test
+    public void testRemoveProduct(){
+        int effectedNum = productService.removeProduct(4);
+        assertEquals(1,effectedNum);
+    }
 }

@@ -36,4 +36,12 @@ public interface ProductDao {
     List<Product> queryProductList(@Param("productCondition") Product productCondition, @Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
 
 
+    /**
+     * 删除商品信息
+     * @param productId
+     * @return
+     */
+    int deleteProduct(int productId);
+
+
 }

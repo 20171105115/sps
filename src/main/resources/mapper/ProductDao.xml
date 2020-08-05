@@ -106,4 +106,9 @@
         order by p.priority DESC
         limit #{rowIndex},#{pageSize}
     </select>
+
+    <delete id="deleteProduct">
+        delete from tb_product
+        where product_id=#{productId}
+    </delete>
 </mapper>

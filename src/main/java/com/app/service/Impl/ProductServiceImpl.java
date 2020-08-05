@@ -116,7 +116,7 @@ public class ProductServiceImpl implements ProductService {
                 }
                 try {
                     int effectedNum = productImgDao.deleteProductImgById(product.getProductId());
-                    if (effectedNum<=0){
+                    if (effectedNum <= 0) {
                         throw new RuntimeException("处理详情图失败 删除失败");
                     }
                     addImageList(product, imgList);
@@ -140,6 +140,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * 通过productId获取商品信息
+     *
      * @param productId
      * @return
      */
@@ -150,8 +151,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductList(Product productCondition, int pageIndex, int pageSize) {
-        int rowIndex = PageUtil.pageIndexToRowIndex(pageIndex,pageSize);
-        return productDao.queryProductList(productCondition,rowIndex,pageSize);
+        int rowIndex = PageUtil.pageIndexToRowIndex(pageIndex, pageSize);
+        return productDao.queryProductList(productCondition, rowIndex, pageSize);
     }
 
     @Override
@@ -160,6 +161,40 @@ public class ProductServiceImpl implements ProductService {
         List<ProductImg> productImgList = productImgDao.queryProductImgById(productId);
         product.setProductImgList(productImgList);
         return product;
+    }
+
+    /**
+     * 通过productId删除商品信息
+     * @param productId
+     * @return
+     */
+    @Override
+    @Transactional
+    public int removeProduct(int productId) {
+        List<ProductImg> productImgList = productImgDao.queryProductImgById(productId);
+        if (productImgList != null && productImgList.size() > 0) {
+            deleteImageList(productImgList);
+            try {
+                int effectedNum = productImgDao.deleteProductImgById(productId);
+                if (effectedNum<=0){
+                    throw new RuntimeException("删除详情图失败");
+                }
+            }catch (Exception e){
+                throw new RuntimeException("删除详情图失败"+e.getMessage());
+            }
+        }
+        Product tempProduct = productDao.selectProductById(productId);
+        ImageUtil.deleteFileOrPath(tempProduct.getProductImg());
+        int i = 0;//是否删除成功
+        try {
+            i = productDao.deleteProduct(productId);
+            if (i<=0){
+                throw new RuntimeException("删除商品失败");
+            }
+        }catch (Exception e){
+            throw new RuntimeException("删除商品失败"+e.getMessage());
+        }
+        return i;
     }
 
     /**

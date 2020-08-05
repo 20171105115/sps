@@ -47,4 +47,12 @@ public interface ProductService {
     Product getProductDetail(int productId);
 
 
+    /**
+     * 删除商品信息
+     * @param productId
+     * @return
+     */
+    int removeProduct(int productId);
+
+
 }
